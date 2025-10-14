@@ -27,7 +27,7 @@ module "container_registry" {
   depends_on = [module.resource_group]
 
   source   = "../../Modules/Azurerm_Container_Registry"
-  acr_name = "devtodoappacrlav"
+  acr_name = "lavtodoappacr2025"
   rg_name  = "dev-todoapp-rglav"
   location = "central india"
   tags     = local.common_tags
