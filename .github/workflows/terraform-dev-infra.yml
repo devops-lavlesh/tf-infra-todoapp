@@ -1,0 +1,57 @@
+
+name: "Dev Terraform Ifras Workflow"
+
+on:
+  push:
+    branches:
+      - main  
+  workflow_dispatch:    
+
+permissions:
+  id-token: write
+  contents: read
+  
+jobs: 
+  terraform-init-plan:
+    runs-on: ubuntu-latest
+    steps: 
+      - name: Checkout
+        uses: actions/checkout@v5.0.0
+    
+      - name: Azure Login
+        uses: Azure/login@v2.3.0
+        with:
+          client-id: 80dd9683-c505-4573-a52a-6804aec5c68f
+          tenant-id: 64fb8422-1a81-4507-8012-c5e724bbbd30
+          subscription-id: 3bafb5d4-689a-4313-b617-9f3367263cd7
+            
+      - name: Terraform fmt
+        id: fmt
+        run: terraform fmt -check
+        continue-on-error: true
+        working-directory: Environments/Dev
+        
+      - name: Terraform Init
+        id: init
+        run: terraform init -input=false  
+        working-directory: Environments/Dev
+
+      - name: Terraform Validate
+        id: validate
+        run: terraform validate -no-color
+        working-directory: Environments/Dev        
+      
+      - name: Terraform Plan
+        id: plan
+        run: terraform plan -no-color -input=false
+        continue-on-error: true
+        working-directory: Environments/Dev
+
+
+
+
+
+
+
+
+        
