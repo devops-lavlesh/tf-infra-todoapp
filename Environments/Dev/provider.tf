@@ -6,6 +6,7 @@ terraform {
     }
   }
    backend "azurerm" {
+    subscription_id = "3bafb5d4-689a-4313-b617-9f3367263cd7"
     resource_group_name  = "dev-rg-back"
     storage_account_name = "devstgback"
     container_name       = "tfstate"
