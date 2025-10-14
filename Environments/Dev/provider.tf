@@ -5,7 +5,15 @@ terraform {
       version = "4.41.0"
     }
   }
-}
+   backend "azurerm" {
+    resource_group_name  = "dev-rg-back"
+    storage_account_name = "devstgback"
+    container_name       = "tfstate"
+    key                  = "devinfra.tfstate"
+  }
+    
+  }
+
 
 provider "azurerm" {
   features {}
