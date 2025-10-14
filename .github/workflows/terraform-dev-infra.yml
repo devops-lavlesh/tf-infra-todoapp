@@ -51,10 +51,10 @@ jobs:
         continue-on-error: true
         working-directory: Environments/Dev
   terraform-apply:
-  runs-on: self-hosted
-  needs: terraform-planning-job
-  # if: github.ref == 'refs/heads/main'
-  environment: dev
+    runs-on: self-hosted
+    needs: terraform-planning-job
+    # if: github.ref == 'refs/heads/main'
+    environment: dev
     steps:
       - name: Checkout
         uses: actions/checkout@v5.0.0
