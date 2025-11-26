@@ -9,7 +9,7 @@ locals {
 module "resource_group" {
   source   = "../../Modules/Azurerm_Resource_Group"
   rg_name  = "dev-todoapp-rglav"
-  location = "East US"
+  location = "Central India"
   tags     = local.common_tags
 }
 # module "storage_account" {
@@ -18,7 +18,7 @@ module "resource_group" {
 #   source                   = "../../Modules/Azurerm_Storage_Acnt"
 #   stg_name                 = "devtodoappstglav"
 #   rg_name                  = "dev-todoapp-rglav"
-#   location                 = "East US"
+#   location                 = "Central India"
 #   account_tier             = "Standard"
 #   account_replication_type = "LRS"
 #   tags                     = local.common_tags
@@ -29,7 +29,7 @@ module "container_registry" {
   source   = "../../Modules/Azurerm_Container_Registry"
   acr_name = "lucktodoappacr2025"
   rg_name  = "dev-todoapp-rglav"
-  location = "East US"
+  location = "Central India"
   tags     = local.common_tags
 }
 module "kubernetes_cluster" {
@@ -38,7 +38,7 @@ module "kubernetes_cluster" {
   source       = "../../Modules/Azurerm_K8s_Cluster"
   cluster_name = "dev-todoapp-aks-lav"
   rg_name      = "dev-todoapp-rglav"
-  location     = "East US"
+  location     = "Central India"
   dns_prefix   = "dev-todoapp-aks-lav"
   node_count   = 2
   vm_size      = "Standard_D2s_v3"
@@ -51,7 +51,7 @@ module "sql_server" {
   source             = "../../Modules/Azurerm_SQL_Server"
   sql_server_name    = "devtodoappsqlsvrlav"
   rg_name            = "dev-todoapp-rglav"
-  location           = "East US"
+  location           = "Central India"
   sql_admin_username = "sqladminlav"
   sql_admin_password = "Devopslav@1001"
   tags               = local.common_tags
