@@ -13,6 +13,12 @@ on:
 permissions:
   id-token: write
   contents: read
+
+env:
+  ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+  ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+  ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+  ARM_USE_OIDC: true  
   
 jobs: 
   terraform-planning-job:
@@ -25,9 +31,9 @@ jobs:
       - name: Azure Login
         uses: Azure/login@v2.3.0
         with:
-          client-id: e56aba2e-309d-4313-8091-e641c4c5c43b
-          tenant-id: 8810bad7-7f76-4bba-8b17-d6d297d7bdd7
-          subscription-id: 2a238ca4-a95b-43d2-846c-1618b53c6203
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
             
       - name: Terraform fmt
         id: fmt
@@ -51,6 +57,7 @@ jobs:
         continue-on-error: true
         working-directory: Environments/Dev
   terraform-apply:
+    name: terraform-apply
     runs-on: self-hosted
     needs: terraform-planning-job
     # if: github.ref == 'refs/heads/main'
@@ -62,9 +69,9 @@ jobs:
       - name: Azure Login
         uses: Azure/login@v2.3.0
         with:
-          client-id: e56aba2e-309d-4313-8091-e641c4c5c43b
-          tenant-id: 8810bad7-7f76-4bba-8b17-d6d297d7bdd7
-          subscription-id: 2a238ca4-a95b-43d2-846c-1618b53c6203
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
       - name: Terraform Init
         id: init
         run: terraform init -input=false  
