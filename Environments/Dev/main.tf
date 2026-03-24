@@ -23,15 +23,15 @@ module "resource_group" {
 #   account_replication_type = "LRS"
 #   tags                     = local.common_tags
 # }
-module "container_registry" {
-  depends_on = [module.resource_group]
+# module "container_registry" {
+#   depends_on = [module.resource_group]
 
-  source   = "../../Modules/Azurerm_Container_Registry"
-  acr_name = "lucktodoappacr2025"
-  rg_name  = "dev-todoapp-rglav"
-  location = "Central India"
-  tags     = local.common_tags
-}
+#   source   = "../../Modules/Azurerm_Container_Registry"
+#   acr_name = "lucktodoappacr2025"
+#   rg_name  = "dev-todoapp-rglav"
+#   location = "Central India"
+#   tags     = local.common_tags
+# }
 # module "kubernetes_cluster" {
 #   depends_on = [module.resource_group]
 
@@ -45,23 +45,39 @@ module "container_registry" {
 #   tags         = local.common_tags
 # }
 
-# module "sql_server" {
-#   depends_on = [module.resource_group]
+module "sql_server" {
+  depends_on = [module.resource_group]
 
-#   source             = "../../Modules/Azurerm_SQL_Server"
-#   sql_server_name    = "devtodoappsqlsvrlav"
-#   rg_name            = "dev-todoapp-rglav"
-#   location           = "Central India"
-#   sql_admin_username = "sqladminlav"
-#   sql_admin_password = "Devopslav@1001"
-#   tags               = local.common_tags
-# }
-# module "sql_database" {
-#   depends_on = [module.sql_server]
+  source             = "../../Modules/Azurerm_SQL_Server"
+  sql_server_name    = "devtodoappsqlsvrlav"
+  rg_name            = "dev-todoapp-rglav"
+  location           = "Central India"
+  sql_admin_username = "sqladminlav"
+  sql_admin_password = "Devopslav@1001"
+  tags               = local.common_tags
+}
+module "sql_database" {
+  depends_on = [module.sql_server]
 
-#   source            = "../../Modules/Azurerm_SQL_Database"
-#   sql_database_name = "devtodoappdblav"
-#   sql_server_id     = module.sql_server.azurerm_mssql_server_id
+  source            = "../../Modules/Azurerm_SQL_Database"
+  sql_database_name = "devtodoappdblav"
+  sql_server_id     = module.sql_server.azurerm_mssql_server_id
 
-#   tags = local.common_tags
-# }
+  tags = local.common_tags
+}
+
+module "webapp" {
+  depends_on = [module.sql_database]
+
+  source             = "../../Modules/Azurerm_Webapp"
+  app_name           = "dev-todoapp-web-lav"
+  app_service_plan   = "dev-todoapp-asp-lav"
+  rg_name            = "dev-todoapp-rglav"
+  location           = "Central India"
+  sql_admin_username = "sqladminlav"
+  sql_admin_password = "Devopslav@1001"
+  sql_database_name  = "devtodoappdblav"
+  sql_server_name    = "devtodoappsqlsvrlav"
+
+  tags = local.common_tags
+}
