@@ -27,7 +27,7 @@ site_config {
       DB_USER         = var.sql_admin_username
       DB_PASSWORD     = var.sql_admin_password
       DB_NAME         = var.sql_database_name
-      DB_CONNECTION   = "Server=tcp:${var.sql_server_name}.database.windows.net;Database=${var.sql_database_name};User ID=${var.sql_admin_username};Password=${var.sql_admin_password};"
+      DB_CONNECTION   = "Server=tcp:${var.sql_server_name}.database.windows.net,1433;Database=${var.sql_database_name};Uid=${var.sql_admin_username};Pwd=${var.sql_admin_password};Encrypt=yes;TrustServerCertificate=no;Connection Timeout=30;"
   }  : {
     "WEBSITE_NODE_DEFAULT_VERSION" = "18-lts"
   }
