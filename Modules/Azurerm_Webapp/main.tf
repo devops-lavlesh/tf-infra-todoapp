@@ -15,15 +15,21 @@ resource "azurerm_linux_web_app" "webapp" {
   resource_group_name = var.rg_name
   service_plan_id     = azurerm_service_plan.asp.id
 
-  site_config {
-    application_stack {
-      node_version = "18-lts"
-    }
+site_config {
+  application_stack {
+    node_version   = var.runtime_stack == "node"   ? "18-lts" : null
+    python_version = var.runtime_stack == "python" ? "3.10"   : null
   }
+}
 
-  app_settings = {
+  app_settings = var.enable_db && var.sql_server_name != null ? {
+      DB_SERVER       = var.sql_server_name
+      DB_USER         = var.sql_admin_username
+      DB_PASSWORD     = var.sql_admin_password
+      DB_NAME         = var.sql_database_name
+      DB_CONNECTION   = "Server=tcp:${var.sql_server_name}.database.windows.net;Database=${var.sql_database_name};User ID=${var.sql_admin_username};Password=${var.sql_admin_password};"
+  }  : {
     "WEBSITE_NODE_DEFAULT_VERSION" = "18-lts"
-    "DB_CONNECTION" = "Server=tcp:${var.sql_server_name}.database.windows.net;Database=${var.sql_database_name};User ID=${var.sql_admin_username};Password=${var.sql_admin_password};"
   }
 
   tags = var.tags

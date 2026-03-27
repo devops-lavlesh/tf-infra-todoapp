@@ -66,18 +66,32 @@ module "sql_database" {
   tags = local.common_tags
 }
 
-module "webapp" {
-  depends_on = [module.sql_database]
+module "ui_webapp" {
+  depends_on       = [module.resource_group]
+  source           = "../../Modules/Azurerm_Webapp"
+  runtime_stack    = "node"
+  enable_db        = false
+  app_name         = "dev-todoapp-ui-web-lav"
+  app_service_plan = "dev-todoapp-ui-asp-lav"
+  rg_name          = "dev-todoapp-rglav"
+  location         = "Central India"
 
+  tags = local.common_tags
+}
+
+module "backned_webapp" {
+  depends_on         = [module.sql_database]
   source             = "../../Modules/Azurerm_Webapp"
-  app_name           = "dev-todoapp-web-lav"
-  app_service_plan   = "dev-todoapp-asp-lav"
+  runtime_stack      = "python"
+  enable_db          = true
+  app_name           = "dev-todoapp-backend-web-lav"
+  app_service_plan   = "dev-todoapp-backend-asp-lav"
   rg_name            = "dev-todoapp-rglav"
   location           = "Central India"
+  sql_server_name    = "devtodoappsqlsvrlav"
   sql_admin_username = "sqladminlav"
   sql_admin_password = "Devopslav@1001"
   sql_database_name  = "devtodoappdblav"
-  sql_server_name    = "devtodoappsqlsvrlav"
 
   tags = local.common_tags
 }
