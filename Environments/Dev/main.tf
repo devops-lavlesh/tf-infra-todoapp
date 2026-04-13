@@ -40,8 +40,8 @@ module "kubernetes_cluster" {
   rg_name      = "dev-todoapp-rglav"
   location     = "Central India"
   dns_prefix   = "dev-todoapp-aks-lav"
-  node_count   = 2
-  vm_size      = "Standard_D2s_v3"
+  node_count   = 1
+  vm_size      = "Standard_B2s"
   tags         = local.common_tags
 }
 
