@@ -23,27 +23,27 @@ module "resource_group" {
 #   account_replication_type = "LRS"
 #   tags                     = local.common_tags
 # }
-# module "container_registry" {
-#   depends_on = [module.resource_group]
+module "container_registry" {
+  depends_on = [module.resource_group]
 
-#   source   = "../../Modules/Azurerm_Container_Registry"
-#   acr_name = "lucktodoappacr2025"
-#   rg_name  = "dev-todoapp-rglav"
-#   location = "Central India"
-#   tags     = local.common_tags
-# }
-# module "kubernetes_cluster" {
-#   depends_on = [module.resource_group]
+  source   = "../../Modules/Azurerm_Container_Registry"
+  acr_name = "lucktodoappacr2025"
+  rg_name  = "dev-todoapp-rglav"
+  location = "Central India"
+  tags     = local.common_tags
+}
+module "kubernetes_cluster" {
+  depends_on = [module.resource_group]
 
-#   source       = "../../Modules/Azurerm_K8s_Cluster"
-#   cluster_name = "dev-todoapp-aks-lav"
-#   rg_name      = "dev-todoapp-rglav"
-#   location     = "Central India"
-#   dns_prefix   = "dev-todoapp-aks-lav"
-#   node_count   = 2
-#   vm_size      = "Standard_D2s_v3"
-#   tags         = local.common_tags
-# }
+  source       = "../../Modules/Azurerm_K8s_Cluster"
+  cluster_name = "dev-todoapp-aks-lav"
+  rg_name      = "dev-todoapp-rglav"
+  location     = "Central India"
+  dns_prefix   = "dev-todoapp-aks-lav"
+  node_count   = 2
+  vm_size      = "Standard_D2s_v3"
+  tags         = local.common_tags
+}
 
 module "sql_server" {
   depends_on = [module.resource_group]
@@ -66,32 +66,32 @@ module "sql_database" {
   tags = local.common_tags
 }
 
-module "ui_webapp" {
-  depends_on       = [module.resource_group]
-  source           = "../../Modules/Azurerm_Webapp"
-  runtime_stack    = "node"
-  enable_db        = false
-  app_name         = "dev-todoapp-ui-web-lav"
-  app_service_plan = "dev-todoapp-ui-asp-lav"
-  rg_name          = "dev-todoapp-rglav"
-  location         = "Central India"
+# module "ui_webapp" {
+#   depends_on       = [module.resource_group]
+#   source           = "../../Modules/Azurerm_Webapp"
+#   runtime_stack    = "node"
+#   enable_db        = false
+#   app_name         = "dev-todoapp-ui-web-lav"
+#   app_service_plan = "dev-todoapp-ui-asp-lav"
+#   rg_name          = "dev-todoapp-rglav"
+#   location         = "Central India"
 
-  tags = local.common_tags
-}
+#   tags = local.common_tags
+# }
 
-module "backned_webapp" {
-  depends_on         = [module.sql_database]
-  source             = "../../Modules/Azurerm_Webapp"
-  runtime_stack      = "python"
-  enable_db          = true
-  app_name           = "dev-todoapp-backend-web-lav"
-  app_service_plan   = "dev-todoapp-backend-asp-lav"
-  rg_name            = "dev-todoapp-rglav"
-  location           = "Central India"
-  sql_server_name    = "devtodoappsqlsvrlav"
-  sql_admin_username = "sqladminlav"
-  sql_admin_password = "Devopslav@1001"
-  sql_database_name  = "devtodoappdblav"
+# module "backned_webapp" {
+#   depends_on         = [module.sql_database]
+#   source             = "../../Modules/Azurerm_Webapp"
+#   runtime_stack      = "python"
+#   enable_db          = true
+#   app_name           = "dev-todoapp-backend-web-lav"
+#   app_service_plan   = "dev-todoapp-backend-asp-lav"
+#   rg_name            = "dev-todoapp-rglav"
+#   location           = "Central India"
+#   sql_server_name    = "devtodoappsqlsvrlav"
+#   sql_admin_username = "sqladminlav"
+#   sql_admin_password = "Devopslav@1001"
+#   sql_database_name  = "devtodoappdblav"
 
-  tags = local.common_tags
-}
+#   tags = local.common_tags
+# }

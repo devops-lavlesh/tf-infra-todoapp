@@ -6,9 +6,9 @@ terraform {
     }
   }
   backend "azurerm" {
-    subscription_id      = "22f9be81-a778-4964-9d20-f5a30e08fef1"
+    subscription_id      = "c2a94f1c-4045-4aa8-afec-ee2dbd47e8a4"
     resource_group_name  = "dev-rg-back"
-    storage_account_name = "devstgback2"
+    storage_account_name = "devstgback3"
     container_name       = "tfstate"
     key                  = "devinfra.tfstate"
   }
@@ -18,6 +18,6 @@ terraform {
 
 provider "azurerm" {
   features {}
-  subscription_id = "22f9be81-a778-4964-9d20-f5a30e08fef1"
+  subscription_id = "c2a94f1c-4045-4aa8-afec-ee2dbd47e8a4"
 
 }
