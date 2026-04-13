@@ -41,7 +41,7 @@ module "kubernetes_cluster" {
   location     = "Central India"
   dns_prefix   = "dev-todoapp-aks-lav"
   node_count   = 1
-  vm_size      = "Standard_B2s"
+  vm_size      = "Standard_b2s_v2"
   tags         = local.common_tags
 }
 
