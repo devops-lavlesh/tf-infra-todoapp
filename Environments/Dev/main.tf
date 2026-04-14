@@ -9,7 +9,7 @@ locals {
 module "resource_group" {
   source   = "../../Modules/Azurerm_Resource_Group"
   rg_name  = "dev-todoapp-rglav"
-  location = "East US"
+  location = "West Europe"
   tags     = local.common_tags
 }
 
@@ -19,7 +19,7 @@ module "resource_group" {
 #   source                   = "../../Modules/Azurerm_Storage_Acnt"
 #   stg_name                 = "devtodoappstglav"
 #   rg_name                  = "dev-todoapp-rglav"
-#   location                 = "East US"
+#   location                 = "West Europe"
 #   account_tier             = "Standard"
 #   account_replication_type = "LRS"
 #   tags                     = local.common_tags
@@ -30,7 +30,7 @@ module "container_registry" {
   source   = "../../Modules/Azurerm_Container_Registry"
   acr_name = "lucktodoappacr2025"
   rg_name  = "dev-todoapp-rglav"
-  location = "East US"
+  location = "West Europe"
   tags     = local.common_tags
 }
 module "kubernetes_cluster" {
@@ -39,10 +39,10 @@ module "kubernetes_cluster" {
   source       = "../../Modules/Azurerm_K8s_Cluster"
   cluster_name = "dev-todoapp-aks-lav"
   rg_name      = "dev-todoapp-rglav"
-  location     = "East US"
+  location     = "West Europe"
   dns_prefix   = "dev-todoapp-aks-lav"
   node_count   = 1
-  vm_size      = "Standard_b2s_v2"
+  vm_size      = "Standard_DS2_v2"
   tags         = local.common_tags
 }
 
@@ -52,7 +52,7 @@ module "sql_server" {
   source             = "../../Modules/Azurerm_SQL_Server"
   sql_server_name    = "devtodoappsqlsvrlav"
   rg_name            = "dev-todoapp-rglav"
-  location           = "East US"
+  location           = "West Europe"
   sql_admin_username = "sqladminlav"
   sql_admin_password = "Devopslav@1001"
   tags               = local.common_tags
@@ -75,7 +75,7 @@ module "sql_database" {
 #   app_name         = "dev-todoapp-ui-web-lav"
 #   app_service_plan = "dev-todoapp-ui-asp-lav"
 #   rg_name          = "dev-todoapp-rglav"
-#   location         = "East US"
+#   location         = "West Europe"
 
 #   tags = local.common_tags
 # }
@@ -88,7 +88,7 @@ module "sql_database" {
 #   app_name           = "dev-todoapp-backend-web-lav"
 #   app_service_plan   = "dev-todoapp-backend-asp-lav"
 #   rg_name            = "dev-todoapp-rglav"
-#   location           = "East US"
+#   location           = "West Europe"
 #   sql_server_name    = "devtodoappsqlsvrlav"
 #   sql_admin_username = "sqladminlav"
 #   sql_admin_password = "Devopslav@1001"
