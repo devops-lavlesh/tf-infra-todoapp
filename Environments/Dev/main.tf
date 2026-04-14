@@ -12,6 +12,7 @@ module "resource_group" {
   location = "Central India"
   tags     = local.common_tags
 }
+
 # module "storage_account" {
 #   depends_on = [module.resource_group]
 
