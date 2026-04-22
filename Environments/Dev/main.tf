@@ -57,6 +57,7 @@ module "sql_server" {
   sql_admin_password = "Devopslav@1001"
   tags               = local.common_tags
 }
+
 module "sql_database" {
   depends_on = [module.sql_server]
 
