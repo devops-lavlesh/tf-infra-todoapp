@@ -8,7 +8,7 @@ terraform {
   backend "azurerm" {
     subscription_id      = "fc890557-6a78-4e91-9eac-5aff85b5fc09"
     resource_group_name  = "dev-rg-back"
-    storage_account_name = "devstgback4"
+    storage_account_name = "devstgback5"
     container_name       = "tfstate"
     key                  = "devinfra.tfstate"
   }
