@@ -24,27 +24,27 @@ module "resource_group" {
 #   account_replication_type = "LRS"
 #   tags                     = local.common_tags
 # }
-module "container_registry" {
-  depends_on = [module.resource_group]
-
-  source   = "../../Modules/Azurerm_Container_Registry"
-  acr_name = "lucktodoappacr2025"
-  rg_name  = "dev-todoapp-rglav"
-  location = "Central India"
-  tags     = local.common_tags
-}
-# module "kubernetes_cluster" {
+# module "container_registry" {
 #   depends_on = [module.resource_group]
 
-#   source       = "../../Modules/Azurerm_K8s_Cluster"
-#   cluster_name = "dev-todoapp-aks-lav"
-#   rg_name      = "dev-todoapp-rglav"
-#   location     = "Central India"
-#   dns_prefix   = "dev-todoapp-aks-lav"
-#   node_count   = 1
-#   vm_size      = "Standard_b2s_v2"
-#   tags         = local.common_tags
+#   source   = "../../Modules/Azurerm_Container_Registry"
+#   acr_name = "lucktodoappacr2025"
+#   rg_name  = "dev-todoapp-rglav"
+#   location = "Central India"
+#   tags     = local.common_tags
 # }
+module "kubernetes_cluster" {
+  depends_on = [module.resource_group]
+
+  source       = "../../Modules/Azurerm_K8s_Cluster"
+  cluster_name = "dev-todoapp-aks-lav"
+  rg_name      = "dev-todoapp-rglav"
+  location     = "Central India"
+  dns_prefix   = "dev-todoapp-aks-lav"
+  node_count   = 1
+  vm_size      = "Standard_b2s_v2"
+  tags         = local.common_tags
+}
 
 # module "sql_server" {
 #   depends_on = [module.resource_group]
